@@ -15,7 +15,7 @@ type Claim struct {
 
 type MerkleDistributorInfo struct {
 	MerkleRoot common.Hash `json:"merkleRoot"`
-	TokenTotal string      `json:"tokenTotal"`
+	TokenTotal *big.Int    `json:"tokenTotal"`
 	Claims     []Claim     `json:"claims"`
 }
 
@@ -46,7 +46,7 @@ func ParseBalanceMap(balances []Balance) (MerkleDistributorInfo, error) {
 	}
 
 	info.MerkleRoot = tree.GetRoot()
-	info.TokenTotal = "0x" + tokenTotal.Text(16)
+	info.TokenTotal = tokenTotal
 
 	return info, nil
 }
