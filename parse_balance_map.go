@@ -9,7 +9,7 @@ import (
 type Claim struct {
 	Index   int            `json:"index"`
 	Account common.Address `json:"account"`
-	Amount  string         `json:"amount"`
+	Amount  *big.Int       `json:"amount"`
 	Proof   []common.Hash  `json:"proof"`
 }
 
@@ -40,7 +40,7 @@ func ParseBalanceMap(balances []Balance) (MerkleDistributorInfo, error) {
 		info.Claims = append(info.Claims, Claim{
 			Index:   idx,
 			Account: balance.Account,
-			Amount:  "0x" + balance.Amount.Text(16),
+			Amount:  balance.Amount,
 			Proof:   proof,
 		})
 	}
