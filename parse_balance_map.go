@@ -7,9 +7,10 @@ import (
 )
 
 type Claim struct {
-	Index  int           `json:"index"`
-	Amount string        `json:"amount"`
-	Proof  []common.Hash `json:"proof"`
+	Index   int            `json:"index"`
+	Account common.Address `json:"account"`
+	Amount  string         `json:"amount"`
+	Proof   []common.Hash  `json:"proof"`
 }
 
 type MerkleDistributorInfo struct {
@@ -37,9 +38,10 @@ func ParseBalanceMap(balances []Balance) (MerkleDistributorInfo, error) {
 		tokenTotal = big.NewInt(0).Add(tokenTotal, balance.Amount)
 
 		info.Claims = append(info.Claims, Claim{
-			Index:  idx,
-			Amount: "0x" + balance.Amount.Text(16),
-			Proof:  proof,
+			Index:   idx,
+			Account: balance.Account,
+			Amount:  "0x" + balance.Amount.Text(16),
+			Proof:   proof,
 		})
 	}
 
